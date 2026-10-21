@@ -1,0 +1,31 @@
+# The stubs run without a CPU limit so they are never the bottleneck.
+# The runner is the process under test: one service per CPU limit.
+services:
+  stubs:
+    build:
+      context: .
+      dockerfile: src/Lab.Stubs/Dockerfile
+
+  runner-1cpu:
+    build:
+      context: .
+      dockerfile: src/Lab.Runner/Dockerfile
+    cpus: 1.0
+    mem_limit: 512m
+    user: "${UID:-1000}"
+    depends_on: [stubs]
+    volumes:
+      - ./results:/results
+    profiles: ["runner"]
+
+  runner-2cpu:
+    build:
+      context: .
+      dockerfile: src/Lab.Runner/Dockerfile
+    cpus: 2.0
+    mem_limit: 512m
+    user: "${UID:-1000}"
+    depends_on: [stubs]
+    volumes:
+      - ./results:/results
+    profiles: ["runner"]
