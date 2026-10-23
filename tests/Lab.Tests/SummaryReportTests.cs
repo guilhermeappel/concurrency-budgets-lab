@@ -149,7 +149,7 @@ public sealed class SummaryReportTests
         Assert.Equal(
             "- Gate (records-degraded, same total permits): PASS. C3 median 503 share 1.0% (needs >= 1%); C4/C3 median goodput 0.95 (needs >= 0.95).",
             CheckLine(summary, "- Gate (records-degraded"));
-        Assert.Equal("- **Gate overall: PASS (topic A stands)**", CheckLine(summary, "- **Gate overall"));
+        Assert.Equal("- **Gate overall: PASS (the central comparison is supported)**", CheckLine(summary, "- **Gate overall"));
     }
 
     [Theory]

@@ -3,6 +3,5 @@ obj/
 .vs/
 .idea/
 *.user
-results/
 TestResults/
 __pycache__/

@@ -53,17 +53,34 @@ DOTNET_PROCESSOR_COUNT=1 dotnet run --project src/Lab.Runner -- --strategy C1 --
 
 ## Results
 
-<!-- NOTA (Guilherme): depois do run, cole aqui a Tabela 1 de results/summary.md,
-     a linha do commit (results/commit.txt) e a data. Apague esta nota. -->
-Not run yet.
+55 runs on 2026-10-21 (16:27 to 16:48 UTC), at commit `1a525f873d476d0abed8981c3468ad36e771ff18`
+(`results/commit.txt`), with `REPS=5 ./scripts/run-matrix.sh`. The raw rows are in
+[results/results.csv](results/results.csv) and the checks of the pre-registered hypotheses are in
+[results/summary.md](results/summary.md). This is Table 1 from that file.
+
+Goodput counts only items whose write was accepted (complete or marked incomplete). 'Accepted at SoR' is the peak of writes the system of record accepted (processing + queued, at most 12); 'Offered to SoR' is the peak of concurrent writes it was offered, including rejected ones.
+
+| Strategy | Scenario | CPUs | Runs | Duration s (range) | Goodput items/s | Complete | Incomplete | Rejected writes | Failed | Enrichment max in flight | Accepted at SoR (max) | Offered to SoR (max) | 503s |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| C1-runtime-default | healthy | 1 | 5 | 83.6 (83.342–86.422) | 2.39 | 200 | 0 | 0 | 0 | 1 | 1 | 1 | 0 |
+| C1-runtime-default | healthy | 2 | 5 | 42.1 (41.662–43.05) | 4.76 | 200 | 0 | 0 | 0 | 2 | 2 | 2 | 0 |
+| C2-single-limit | enrichment-degraded | 1 | 5 | 26.2 (26.102–27.299) | 7.63 | 163 | 37 | 0 | 0 | 32 | 4 | 4 | 0 |
+| C2-single-limit | healthy | 1 | 5 | 2.9 (2.857–3.006) | 67.86 | 200 | 0 | 0 | 0 | 32 | 11 | 11 | 0 |
+| C2-single-limit | records-degraded | 1 | 5 | 3.9 (3.87–3.959) | 34.35 | 136 | 0 | 64 | 0 | 32 | 12 | 13 | 64 |
+| C3-shared-limiter | enrichment-degraded | 1 | 5 | 28.2 (27.012–28.61) | 7.09 | 159 | 41 | 0 | 0 | 30 | 4 | 4 | 0 |
+| C3-shared-limiter | healthy | 1 | 5 | 3.1 (3.02–3.092) | 65.32 | 200 | 0 | 0 | 0 | 30 | 12 | 12 | 0 |
+| C3-shared-limiter | records-degraded | 1 | 5 | 4.2 (4.121–4.283) | 34.01 | 143 | 0 | 57 | 0 | 30 | 12 | 13 | 57 |
+| C4-per-dependency | enrichment-degraded | 1 | 5 | 34.5 (33.986–34.904) | 5.79 | 158 | 42 | 0 | 0 | 24 | 3 | 3 | 0 |
+| C4-per-dependency | healthy | 1 | 5 | 3.4 (3.408–3.512) | 58.38 | 200 | 0 | 0 | 0 | 24 | 6 | 6 | 0 |
+| C4-per-dependency | records-degraded | 1 | 5 | 5.7 (5.663–5.791) | 35.08 | 200 | 0 | 0 | 0 | 24 | 6 | 6 | 0 |
+
+The article calls items "records" and goodput "accepted records/s".
 
 ## How this was built
 
-<!-- NOTA (Guilherme): ajuste ao que for verdade quando publicar. Sugestão abaixo. -->
-I designed the experiment, the hypotheses and the strategies. The code was written with the help
-of an AI assistant (Anthropic's Claude) from my specification; I reviewed, ran and can explain
-every part of it.
+I specified the experiments and ran them on my machine with Claude Code. Most of the lab code was
+written with Anthropic's Claude from my specification.
 
 ## License
 
-<!-- NOTA (Guilherme): escolha a licença (ex.: MIT) e crie o arquivo LICENSE com o seu nome. -->
+MIT. See [LICENSE](LICENSE).

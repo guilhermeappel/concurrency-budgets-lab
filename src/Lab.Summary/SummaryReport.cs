@@ -105,7 +105,7 @@ public static class SummaryReport
             var passed = c3RejectShare >= 0.01 && goodputRatio >= 0.95;
             output.Add($"- Gate (records-degraded, same total permits): {(passed ? "PASS" : "FAIL")}. "
                        + $"C3 median 503 share {Formatting.Percent(c3RejectShare, 1)} (needs >= 1%); C4/C3 median goodput {Formatting.Fixed(goodputRatio, 2)} (needs >= 0.95).");
-            output.Add($"- **Gate overall: {(passed ? "PASS (topic A stands)" : "FAIL (the central comparison is not supported)")}**");
+            output.Add($"- **Gate overall: {(passed ? "PASS (the central comparison is supported)" : "FAIL (the central comparison is not supported)")}**");
         }
         else
         {

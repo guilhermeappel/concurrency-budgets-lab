@@ -81,5 +81,11 @@ split. C4's SoR budget equals the SoR's capacity on purpose: that is the sizing 
   progress); H2 moved from the healthy to the records-degraded scenario (in the healthy model the SoR
   is not under pressure); the gate now tests protection at equal permits instead of raw speed;
   SoR latency is recorded only for accepted writes.
-<!-- NOTA (Guilherme): cada mudança depois do primeiro run vira uma linha aqui:
-     data, o que mudou, por quê, quais números passam a ser "computed after the change". -->
+- 2026-10-23, after the runs: the summary's PASS line for the gate said "topic A stands", a label
+  explained nowhere in the lab. It now says "the central comparison is supported", the counterpart
+  of the FAIL line. Only that text changed in `src/Lab.Summary/SummaryReport.cs` and its test; no
+  hypothesis, threshold, check or parameter changed, and no number is computed after the change.
+  `results/summary.md` was regenerated from the unchanged `results/results.csv` with the same
+  command `scripts/run-matrix.sh` uses, and differs from the earlier file only in that line.
+<!-- NOTE (Guilherme): each change after the first run becomes a line here:
+     date, what changed, why, and which numbers become "computed after the change". -->
